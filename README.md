@@ -27,5 +27,23 @@ A Jupyter Notebook for viewing plots of the data
 `src/python/traffic`
 Some Python modules for getting data from the DB
 
+## Setup
+#### Requirements
+##### Python 3.7
+- pyodbc
+- pandas
+- matplotlib
+- configparser
+
+Create config file: `TrafficData/_private/db.config`
+```
+[CONNECTION]
+server = <server>
+database = <db>
+uid = <uid>
+dbpassword = <password>
+```
+
 ## Who
 - Trevor Blanarik
+
