@@ -1,9 +1,7 @@
 import configparser
 import datetime
-
 import dateutil
 import pandas
-
 import pyodbc
 
 config = configparser.ConfigParser()
@@ -45,4 +43,4 @@ def get_travel_times(tid, startdate='1970-01-01', enddate='3000-01-01', local_tz
     with pyodbc.connect(connection_string) as conn:
         df =  pandas.read_sql_query(query, conn)
     df['TimeUpdated'] = df['TimeUpdated'].dt.tz_localize(from_zone).dt.tz_convert(to_zone)
-    return df.sort_values(by=['TimeUpdated'])
+    return df.set_index(pandas.DatetimeIndex(df['TimeUpdated'])).sort_values(by=['TimeUpdated'])
