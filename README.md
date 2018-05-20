@@ -12,5 +12,16 @@ Some of the longterm goals of the project:
 ## Data
 - WSDOT API: http://wsdot.com/traffic/api/ 
 
+## Components
+
+### DataArchiver
+`/src/dotnot/DataArchiver`
+This is an Azure Function App dedicated to retrieving the current travel times from the WSDOT Travel Times API every 20 minutes.
+It stores the data in a SQL table, also in Azure.
+
+### DataViewer
+
+
+
 ## Who
 - Trevor Blanarik
