@@ -20,8 +20,12 @@ This is an Azure Function App dedicated to retrieving the current travel times f
 It stores the data in a SQL table, also in Azure.
 
 ### DataViewer
+`src/python/jupyter`
+A Jupyter Notebook for viewing plots of the data
 
-
+### Traffic
+`src/python/traffic`
+Some Python modules for getting data from the DB
 
 ## Who
 - Trevor Blanarik
