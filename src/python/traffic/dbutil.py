@@ -16,6 +16,12 @@ connection_string = ('Driver={{ODBC Driver 13 for SQL Server}};'
                      'TrustServerCertificate=no;'
                      'Connection Timeout=30;').format(**config['CONNECTION'])
 
+def get_nameidtable():
+    query = "SELECT * FROM NameIdTable"
+    with pyodbc.connect(connection_string) as conn:
+        df = pandas.read_sql_query(query, conn)
+    return df.sort_values(by=['TRAVELTIMEID'])
+
 def _format_date_as_string(dt, local_tz):
     if type(dt) == str:
         local_zone = dateutil.tz.gettz(local_tz)
@@ -41,6 +47,6 @@ def get_travel_times(tid, startdate='1970-01-01', enddate='3000-01-01', local_tz
 
     query = "SELECT TimeUpdated,CurrentTime,Description FROM TravelTimes WHERE TRAVELTIMEID = {0} AND TIMEUPDATED BETWEEN '{1}' AND '{2}'".format(tid, startdate, enddate)
     with pyodbc.connect(connection_string) as conn:
-        df =  pandas.read_sql_query(query, conn)
+        df = pandas.read_sql_query(query, conn)
     df['TimeUpdated'] = df['TimeUpdated'].dt.tz_localize(from_zone).dt.tz_convert(to_zone)
     return df.set_index(pandas.DatetimeIndex(df['TimeUpdated'])).sort_values(by=['TimeUpdated'])
